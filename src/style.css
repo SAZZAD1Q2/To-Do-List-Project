@@ -1,3 +1,54 @@
-h1,h2 {
-    color: orange;
+h1,
+h2 {
+  color: orange;
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+#input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#button {
+  padding: 12px;
+  background-color: #5058ab;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #dbd9d9;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li button {
+  margin-left: auto;
+  padding: 4px;
+  background-color: #bba4a4;
+  color: white;
+  border: none;
+  border-radius: 45%;
+  cursor: pointer;
+}
+
+li button:hover {
+  background-color: #c47c6dec;
 }
