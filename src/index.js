@@ -1,26 +1,30 @@
-import './style.css';
+const tasks = [
+  {
+    description: 'Task 1',
+    completed: false,
+    index: 1,
+  },
+  {
+    description: 'Task 2',
+    completed: true,
+    index: 2,
+  },
+  {
+    description: 'Task 3',
+    completed: false,
+    index: 3,
+  },
+];
 
-const taskInput = document.getElementById('input');
-const addButton = document.getElementById('button');
-const todoList = document.getElementById('todo-list');
+document.addEventListener('DOMContentLoaded', () => {
+  const todoList = document.getElementById('todo-list');
+  todoList.innerHTML = '';
 
-//  add work
+  tasks.sort((a, b) => a.index - b.index);
 
-const removeTask = (event) => {
-  const li = event.target.parentNode;
-  todoList.removeChild(li);
-};
-
-const addTask = () => {
-  const taskValue = taskInput.value.trim();
-
-  const li = document.createElement('li');
-  li.innerHTML = `${taskValue} <button class="remove-button">X</button>`;
-  todoList.appendChild(li);
-
-  taskInput.value = '';
-  const removeButton = li.querySelector('.remove-button');
-  removeButton.addEventListener('click', removeTask);
-};
-
-addButton.addEventListener('click', addTask);
+  tasks.forEach((task) => {
+    const li = document.createElement('li');
+    li.innerHTML = `${task.description} (${task.completed ? 'Completed' : 'Incomplete'})`;
+    todoList.appendChild(li);
+  });
+});
