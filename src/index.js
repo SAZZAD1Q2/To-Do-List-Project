@@ -19,12 +19,17 @@ const tasks = [
 document.addEventListener('DOMContentLoaded', () => {
   const todoList = document.getElementById('todo-list');
   todoList.innerHTML = '';
+  todoList.style.listStyle= 'none';
 
   tasks.sort((a, b) => a.index - b.index);
 
   tasks.forEach((task) => {
     const li = document.createElement('li');
-    li.innerHTML = `${task.description} (${task.completed ? 'Completed' : 'Incomplete'})`;
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.completed;
+    li.appendChild(checkbox);
+    li.innerHTML += task.description;
     todoList.appendChild(li);
   });
 });

@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("const tasks = [\n  {\n    description: \"Task 1\",\n    completed: false,\n    index: 1\n  },\n  {\n    description: \"Task 2\",\n    completed: true,\n    index: 2\n  },\n  {\n    description: \"Task 3\",\n    completed: false,\n    index: 3\n  }\n];\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  const todoList = document.getElementById(\"todo-list\");\n  todoList.innerHTML = \"\";\n\n  tasks.sort((a, b) => a.index - b.index);\n\n  tasks.forEach((task) => {\n    const li = document.createElement(\"li\");\n    li.innerHTML = `${task.description} (${task.completed ? \"Completed\" : \"Incomplete\"})`;\n    todoList.appendChild(li);\n  });\n});\n\n\n//# sourceURL=webpack://to-do-list/./src/index.js?");
+eval("const tasks = [\n  {\n    description: 'Task 1',\n    completed: false,\n    index: 1,\n  },\n  {\n    description: 'Task 2',\n    completed: true,\n    index: 2,\n  },\n  {\n    description: 'Task 3',\n    completed: false,\n    index: 3,\n  },\n];\n\ndocument.addEventListener('DOMContentLoaded', () => {\n  const todoList = document.getElementById('todo-list');\n  todoList.innerHTML = '';\n  todoList.style.listStyle= 'none';\n\n  tasks.sort((a, b) => a.index - b.index);\n\n  tasks.forEach((task) => {\n    const li = document.createElement('li');\n    const checkbox = document.createElement('input');\n    checkbox.type = 'checkbox';\n    checkbox.checked = task.completed;\n    li.appendChild(checkbox);\n    li.innerHTML += task.description;\n    todoList.appendChild(li);\n  });\n});\n\n\n//# sourceURL=webpack://to-do-list/./src/index.js?");
 
 /***/ })
 
