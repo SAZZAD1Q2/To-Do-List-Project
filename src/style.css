@@ -28,8 +28,8 @@ body {
   border-radius: 6px;
 }
 
-#button {
-  padding: 12px;
+#input_button {
+  padding: 12px 80px;
   background-color: #5058ab;
   color: white;
   border: none;
