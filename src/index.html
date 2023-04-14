@@ -7,22 +7,20 @@
     <title>To-Do List</title>
 </head>
 <body>
-
-    <h1>Today's To-Do</h1>
-    <div class="loader"></div>
-
-
-	<input type="text" id="input" placeholder="Add to your list...">
-
-	<!-- <button id="button">Add</button> -->
-
-	<ul id="todo-list">
-        
-          
-    </ul>
-
-    <button type="button" id="input input_button">Clear as completed</button>
-</body>
+    <div id="app">
+      <h1>Today's To Do</h1>
+      <div class="input-container">
+        <input type="text" id="input" placeholder="Add a task...">
+        <button id="button">Add</button>
+      </div>
+      <ul id="todo-list"></ul>
+      <div class="button-container">
+        <button id="completed-button" class="complete">Clear as Completed</button>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+  
 </html>
 
 

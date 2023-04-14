@@ -77,6 +77,45 @@ button {
   border-radius: 6px;
 }
 
+.popup button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 li button:hover {
   background-color: #c47c6dec;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.popup h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.popup input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
