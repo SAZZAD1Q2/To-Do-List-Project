@@ -21,11 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
   tasks.forEach((task) => {
     const li = document.createElement('li');
     li.style.border = '1px solid #ddd';
-    li.style.display = 'block'
+    li.style.display = 'block';
     li.style.padding = '10px 0px 10px 50px';
     li.style.marginLeft = '-40px';
     li.style.marginRight = '50vw';
-
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
