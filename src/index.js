@@ -6,7 +6,7 @@ const taskInput = document.getElementById('input');
 const addButton = document.getElementById('button');
 const todoList = document.getElementById('todo-list');
 
-const completeButton = document.querySelector('.complete');
+// const completeButton = document.querySelector('.complete');
 
 function removeTask(li) {
   const index = Array.prototype.indexOf.call(todoList.children, li);
@@ -130,47 +130,59 @@ function addTask() {
 
 // remove task
 
-// edit task
+// newly comein
+function saveTaskCompletedState(taskElement, isCompleted) {
+  const taskId = taskElement.getAttribute('id');
+  const taskData = {
+    completed: isCompleted,
+  };
+  localStorage.setItem(taskId, JSON.stringify(taskData));
+}
+
+function markTaskAsCompleted(taskElement) {
+  taskElement.classList.add('completed');
+  const checkbox = taskElement.querySelector('input[type="checkbox"]');
+  checkbox.checked = true;
+  saveTaskCompletedState(taskElement, true);
+}
+
 function markTaskAsUncompleted(taskElement) {
   taskElement.classList.remove('completed');
   const checkbox = taskElement.querySelector('input[type="checkbox"]');
   checkbox.checked = false;
+  saveTaskCompletedState(taskElement, false);
 }
 
 function removeCompletedTasks() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', function () { // add event listener to checkbox
+    checkbox.addEventListener('change', function () {
       if (this.checked) {
         const li = this.parentNode;
         if (li.classList.contains('completed')) {
           markTaskAsUncompleted(li);
+        } else {
+          markTaskAsCompleted(li);
         }
-        removeTask(li);
+      } else {
+        const li = this.parentNode;
+        if (li.classList.contains('completed')) {
+          markTaskAsUncompleted(li);
+        } else {
+          saveTaskCompletedState(li, false);
+        }
       }
     });
-    if (checkbox.checked) { // check if checkbox is initially checked
+    if (checkbox.checked) {
       const li = checkbox.parentNode;
-      if (li.classList.contains('completed')) {
-        markTaskAsUncompleted(li);
-      }
-      removeTask(li);
+      markTaskAsCompleted(li);
     }
   });
 }
 
-completeButton.addEventListener('click', removeCompletedTasks);
-
-function completeTasks() {
-  const tasks = Array.from(document.querySelectorAll('li'));
-  const completedTasks = tasks.filter((task) => task.classList.contains('completed'));
-  completedTasks.forEach((task) => {
-    removeTask(task);
-  });
-}
-
-completeButton.addEventListener('click', completeTasks);
+// call removeCompletedTasks to initialize
+removeCompletedTasks();
 
 addButton.addEventListener('click', addTask);
 
-completeButton();
+// completeButton();
