@@ -1,36 +1,150 @@
-const tasks = [
-  {
-    description: 'Wash the dishes',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Completed TO Do list project',
-    completed: true,
-    index: 2,
-  },
-];
+import './style.css';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const todoList = document.getElementById('todo-list');
-  todoList.innerHTML = '';
-  todoList.style.listStyle = 'none';
+const taskInput = document.getElementById('input');
+const addButton = document.getElementById('button');
+const todoList = document.getElementById('todo-list');
+const completeButton = document.querySelector('.complete');
 
-  tasks.sort((a, b) => a.index - b.index);
+const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  tasks.forEach((task) => {
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(savedTasks));
+}
+
+function removeTask(li) {
+  const index = Array.prototype.indexOf.call(todoList.children, li);
+  savedTasks.splice(index, 1);
+  saveTasks();
+
+  // Update remaining tasks' indexes
+  for (let i = index; i < todoList.children.length; i += 1) {
+    const taskLi = todoList.children[i];
+    const checkbox = taskLi.querySelector('input[type="checkbox"]');
+    checkbox.setAttribute('data-index', i);
+  }
+
+  if (li.firstChild.nextSibling.checked) {
+    li.style.display = 'none';
+  } else {
+    todoList.removeChild(li);
+  }
+}
+
+function editTask(li) {
+  const taskValue = li.firstChild.nextSibling.textContent.trim();
+
+  const popupDiv = document.createElement('div');
+  popupDiv.classList.add('popup');
+  const heading = document.createElement('h2');
+  heading.textContent = 'Edit task';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.setAttribute('value', taskValue);
+
+  const saveButton = document.createElement('button');
+  saveButton.textContent = 'Save';
+  saveButton.addEventListener('click', () => {
+    const editedTaskValue = input.value.trim();
+    if (editedTaskValue !== '') {
+      li.firstChild.nextSibling.nodeValue = editedTaskValue;
+
+      const index = parseInt(li.querySelector('input[type="checkbox"]').dataset.index, 10);
+
+      savedTasks[index].text = editedTaskValue;
+      saveTasks();
+      popupDiv.remove();
+    }
+  });
+  popupDiv.appendChild(heading);
+  popupDiv.appendChild(input);
+  popupDiv.appendChild(saveButton);
+  document.body.appendChild(popupDiv);
+}
+
+function renderTasks() {
+  savedTasks.forEach((task, index) => {
     const li = document.createElement('li');
-    li.style.border = '1px solid #ddd';
-    li.style.display = 'block';
-    li.style.padding = '10px 0px 10px 50px';
-    li.style.marginLeft = '-40px';
-    li.style.marginRight = '50vw';
-
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = task.completed;
+    checkbox.dataset.index = index;
     li.appendChild(checkbox);
-    li.innerHTML += task.description;
+    li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
     todoList.appendChild(li);
+
+    const removeButton = li.querySelector('.remove-button');
+    removeButton.addEventListener('click', () => {
+      removeTask(li);
+      window.location.reload();
+    });
+
+    const editButton = li.querySelector('.edit-button');
+    editButton.addEventListener('click', () => {
+      editTask(li);
+    });
   });
-});
+}
+
+renderTasks();
+
+function addTask() {
+  const taskValue = taskInput.value.trim();
+
+  if (taskValue === '') {
+    return;
+  }
+
+  const task = {
+    text: taskValue,
+    completed: false,
+    index: savedTasks.length, // add the index property to the task object
+  };
+
+  savedTasks.push(task);
+  saveTasks();
+
+  const li = document.createElement('li');
+  const checkbox = document.createElement('input');
+  li.style.listStyle = 'none';
+  checkbox.type = 'checkbox';
+  checkbox.dataset.index = task.index;
+  li.appendChild(checkbox);
+
+  li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
+  todoList.appendChild(li);
+
+  const removeButton = li.querySelector('.remove-button');
+  removeButton.addEventListener('click', () => {
+    removeTask(li);
+  });
+
+  const editButton = li.querySelector('.edit-button');
+
+  editButton.addEventListener('click', () => {
+    editTask(li);
+  });
+
+  taskInput.value = '';
+}
+
+// complete button
+
+// remove task
+
+// edit task
+
+function removeCompletedTasks() {
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      const li = checkbox.parentNode;
+      removeTask(li);
+    }
+  });
+}
+
+completeButton.addEventListener('click', removeCompletedTasks);
+
+addButton.addEventListener('click', addTask);
+
+completeButton();
