@@ -48,6 +48,7 @@ function addTask() {
   const task = {
     text: taskValue,
     completed: false,
+    index: savedTasks.length // set the index property to the new array length
   };
 
   savedTasks.push(task);
@@ -55,7 +56,6 @@ function addTask() {
 
   const li = document.createElement('li');
   const checkbox = document.createElement('input');
-  // li list style none;
   li.style.listStyle = 'none';
   checkbox.type = 'checkbox';
   li.appendChild(checkbox);
@@ -87,12 +87,20 @@ function removeTask(li) {
   savedTasks.splice(index, 1);
   saveTasks();
 
+  // Update indexes of remaining tasks
+  for (let i = index; i < todoList.children.length; i++) {
+    const taskLi = todoList.children[i];
+    const checkbox = taskLi.querySelector('input[type="checkbox"]');
+    checkbox.setAttribute('data-index', i);
+  }
+
   if (li.firstChild.nextSibling.checked) {
     li.style.display = 'none';
   } else {
     todoList.removeChild(li);
   }
 }
+
 
 // edit task
 
