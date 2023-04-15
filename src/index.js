@@ -47,7 +47,9 @@ function editTask(li) {
     const editedTaskValue = input.value.trim();
     if (editedTaskValue !== '') {
       li.firstChild.nextSibling.nodeValue = editedTaskValue;
-      const index = Array.prototype.indexOf.call(todoList.children, li);
+
+      const index = parseInt(li.querySelector('input[type="checkbox"]').dataset.index, 10);
+
       savedTasks[index].text = editedTaskValue;
       saveTasks();
       popupDiv.remove();
@@ -65,7 +67,7 @@ function renderTasks() {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = task.completed;
-    checkbox.setAttribute('data-index', index);
+    checkbox.dataset.index = index;
     li.appendChild(checkbox);
     li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
     todoList.appendChild(li);
@@ -100,13 +102,13 @@ function addTask() {
   savedTasks.push(task);
   saveTasks();
 
-  window.location.reload();
+  const index = savedTasks.length - 1;
 
   const li = document.createElement('li');
   const checkbox = document.createElement('input');
   li.style.listStyle = 'none';
   checkbox.type = 'checkbox';
-  checkbox.setAttribute('data-index', savedTasks.length - 1);
+  checkbox.dataset.index = index;
   li.appendChild(checkbox);
 
   li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
