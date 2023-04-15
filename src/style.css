@@ -48,15 +48,19 @@ li {
   display: flex;
   align-items: center;
   padding: 8px;
+  list-style: none;
   border-bottom: 1px solid #dbd9d9;
 }
 
 li input[type="checkbox"] {
   margin-right: 10px;
+  padding-right: 150px;
 }
 
 li .task {
   flex-grow: 1;
+  padding-right: 150px;
+  list-style: none;
 }
 
 .footer_button {
