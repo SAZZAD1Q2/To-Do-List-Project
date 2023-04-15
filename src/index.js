@@ -161,6 +161,19 @@ function removeCompletedTasks() {
 
 completeButton.addEventListener('click', removeCompletedTasks);
 
+function completeTasks() {
+  const tasks = Array.from(document.querySelectorAll('li'));
+  const completedTasks = tasks.filter((task) => {
+    return task.classList.contains('completed');
+  });
+  completedTasks.forEach((task) => {
+    removeTask(task);
+  });
+}
+
+completeButton.addEventListener('click', completeTasks);
+
+
 addButton.addEventListener('click', addTask);
 
 completeButton();
