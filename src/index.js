@@ -97,18 +97,17 @@ function addTask() {
   const task = {
     text: taskValue,
     completed: false,
+    index: savedTasks.length, // add the index property to the task object
   };
 
   savedTasks.push(task);
   saveTasks();
 
-  const index = savedTasks.length - 1;
-
   const li = document.createElement('li');
   const checkbox = document.createElement('input');
   li.style.listStyle = 'none';
   checkbox.type = 'checkbox';
-  checkbox.dataset.index = index;
+  checkbox.dataset.index = task.index;
   li.appendChild(checkbox);
 
   li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
