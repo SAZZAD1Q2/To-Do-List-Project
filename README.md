@@ -28,7 +28,7 @@
 
 # 📖 To Do List <a name="To Do List"></a>
 
-> It is a To Do List project. I make this with the help instraction of Microverse. In this project I create book list website dinamically. one can add and remove book and it's authon here.
+> It is a To Do List project. I make this with the help instraction of Microverse. In this project I create book list website dinamically. one can add and remove book and it's authons here.
 
 **To Do List** is a Microverse assined project. In this project I will apply js DOM manupulation step by step.
 
@@ -135,7 +135,7 @@ Contributions are always welcome. Feel free to make your issue.
 <!-- SUPPORT -->
 
 ## ⭐️ Show your support <a name="support"></a>
-If you like this project. Give me star. please spread it out to your network.
+If you like this project. Give me star. please spread it out to your networks.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
