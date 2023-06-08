@@ -104,6 +104,9 @@ npm install
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### deployment
+You can use the online version of my work. Here is the link of online version: https://sazzad1q2.github.io/To-Do-List/
+
 <!-- AUTHORS -->
 
 ## 👥 Authors <a name="authors"></a>
