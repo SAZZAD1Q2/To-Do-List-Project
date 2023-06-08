@@ -25,7 +25,6 @@ const tasks = [
   },
 ];
 
-
 const displayTask = (tasks) => {
   listContainer.innerHTML = '';
 
