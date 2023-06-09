@@ -5,29 +5,25 @@ const addButton = document.getElementById('button');
 const todoList = document.getElementById('todo-list');
 const completeButton = document.querySelector('.complete');
 
-const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(savedTasks));
 }
 
+function updateIndexes() {
+  savedTasks.forEach((task, index) => {
+    task.index = index;
+  });
+}
+
 function removeTask(li) {
   const index = Array.prototype.indexOf.call(todoList.children, li);
   savedTasks.splice(index, 1);
+  updateIndexes();
   saveTasks();
 
-  // Update remaining tasks' indexes
-  for (let i = index; i < todoList.children.length; i += 1) {
-    const taskLi = todoList.children[i];
-    const checkbox = taskLi.querySelector('input[type="checkbox"]');
-    checkbox.setAttribute('data-index', i);
-  }
-
-  if (li.firstChild.nextSibling.checked) {
-    li.style.display = 'none';
-  } else {
-    todoList.removeChild(li);
-  }
+  li.remove();
 }
 
 function editTask(li) {
@@ -39,7 +35,7 @@ function editTask(li) {
   heading.textContent = 'Edit task';
   const input = document.createElement('input');
   input.type = 'text';
-  input.setAttribute('value', taskValue);
+  input.value = taskValue;
 
   const saveButton = document.createElement('button');
   saveButton.textContent = 'Save';
@@ -62,12 +58,14 @@ function editTask(li) {
 }
 
 function renderTasks() {
+  todoList.innerHTML = '';
+
   savedTasks.forEach((task, index) => {
     const li = document.createElement('li');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = task.completed;
-    checkbox.dataset.index = index;
+    checkbox.dataset.index = task.index;
     li.appendChild(checkbox);
     li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
     todoList.appendChild(li);
@@ -75,7 +73,6 @@ function renderTasks() {
     const removeButton = li.querySelector('.remove-button');
     removeButton.addEventListener('click', () => {
       removeTask(li);
-      window.location.reload();
     });
 
     const editButton = li.querySelector('.edit-button');
@@ -84,8 +81,6 @@ function renderTasks() {
     });
   });
 }
-
-renderTasks();
 
 function addTask() {
   const taskValue = taskInput.value.trim();
@@ -97,54 +92,26 @@ function addTask() {
   const task = {
     text: taskValue,
     completed: false,
-    index: savedTasks.length, // add the index property to the task object
+    index: savedTasks.length,
   };
 
   savedTasks.push(task);
   saveTasks();
 
-  const li = document.createElement('li');
-  const checkbox = document.createElement('input');
-  li.style.listStyle = 'none';
-  checkbox.type = 'checkbox';
-  checkbox.dataset.index = task.index;
-  li.appendChild(checkbox);
-
-  li.innerHTML += `${task.text} <button class="remove-button">X</button> <button class="edit-button">Edit</button>`;
-  todoList.appendChild(li);
-
-  const removeButton = li.querySelector('.remove-button');
-  removeButton.addEventListener('click', () => {
-    removeTask(li);
-  });
-
-  const editButton = li.querySelector('.edit-button');
-
-  editButton.addEventListener('click', () => {
-    editTask(li);
-  });
+  renderTasks();
 
   taskInput.value = '';
 }
 
-// complete button
-
-// remove task
-
-// edit task
-
 function removeCompletedTasks() {
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach((checkbox) => {
-    if (checkbox.checked) {
-      const li = checkbox.parentNode;
-      removeTask(li);
-    }
-  });
+  savedTasks = savedTasks.filter((task) => !task.completed);
+  updateIndexes();
+  saveTasks();
+  renderTasks();
 }
 
 completeButton.addEventListener('click', removeCompletedTasks);
 
 addButton.addEventListener('click', addTask);
 
-completeButton();
+renderTasks();
