@@ -60,7 +60,7 @@ function editTask(li) {
 function renderTasks() {
   todoList.innerHTML = '';
 
-  savedTasks.forEach((task, index) => {
+  savedTasks.forEach((task) => {
     const li = document.createElement('li');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
