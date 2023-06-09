@@ -1,9 +1,7 @@
 import './style.css';
 
-const taskInput = document.getElementById('input');
-const addButton = document.getElementById('button');
-const todoList = document.getElementById('todo-list');
-const completeButton = document.querySelector('.complete');
+const listContainer = document.querySelector('.container');
+
 
 let savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -37,25 +35,18 @@ function editTask(li) {
   input.type = 'text';
   input.value = taskValue;
 
-  const saveButton = document.createElement('button');
-  saveButton.textContent = 'Save';
-  saveButton.addEventListener('click', () => {
-    const editedTaskValue = input.value.trim();
-    if (editedTaskValue !== '') {
-      li.firstChild.nextSibling.nodeValue = editedTaskValue;
 
-      const index = parseInt(li.querySelector('input[type="checkbox"]').dataset.index, 10);
+const displayTask = (tasks) => {
+  listContainer.innerHTML = '';
 
-      savedTasks[index].text = editedTaskValue;
-      saveTasks();
-      popupDiv.remove();
-    }
-  });
-  popupDiv.appendChild(heading);
-  popupDiv.appendChild(input);
-  popupDiv.appendChild(saveButton);
-  document.body.appendChild(popupDiv);
-}
+  tasks.forEach((task) => {
+    const listItem = document.createElement('div');
+    listItem.classList.add('list');
+    listItem.draggable = true;
+
+    const content = document.createElement('div');
+    content.classList.add('content');
+
 
 function renderTasks() {
   todoList.innerHTML = '';
@@ -75,12 +66,10 @@ function renderTasks() {
       removeTask(li);
     });
 
-    const editButton = li.querySelector('.edit-button');
-    editButton.addEventListener('click', () => {
-      editTask(li);
-    });
-  });
-}
+
+    content.appendChild(checkbox);
+    content.appendChild(description);
+
 
 function addTask() {
   const taskValue = taskInput.value.trim();
@@ -115,3 +104,4 @@ completeButton.addEventListener('click', removeCompletedTasks);
 addButton.addEventListener('click', addTask);
 
 renderTasks();
+
