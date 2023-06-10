@@ -1,7 +1,7 @@
-const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+// Get tasks from local storage or create an empty array
+export const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function saveTasks() {
+// Function to save tasks to local storage
+export function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(savedTasks));
 }
-
-export { savedTasks, saveTasks };

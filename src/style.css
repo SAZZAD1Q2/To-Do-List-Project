@@ -14,13 +14,6 @@ h1 {
   margin-top: 0;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-}
-
 #app {
   max-width: 400px;
   margin: 20px auto;
@@ -45,6 +38,16 @@ body {
   padding: 8px;
   border: none;
   border-radius: 5px 0 0 5px;
+}
+
+button {
+  padding: 12px;
+  background-color: #5058ab;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 .addTask button {
@@ -90,16 +93,6 @@ li .task {
   border: none;
   flex: 1;
   padding: 5px;
-}
-
-button {
-  padding: 12px;
-  background-color: #5058ab;
-  color: white;
-  cursor: pointer;
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
 }
 
 .popup button {
