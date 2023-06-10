@@ -1,6 +1,6 @@
 import './style.css';
-import { savedTasks } from './modules/localStorage.js';
-import { addTask, deleteTask, editTask } from './modules/edit.js';
+import { savedTasks } from './module/localStorage.js';
+import { addTask, deleteTask, editTask } from './module/edit.js';
 
 const addButton = document.getElementById('button');
 const todoList = document.getElementById('todo-list');
