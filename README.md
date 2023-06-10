@@ -131,7 +131,7 @@ You can use the online version of my work. Here is the link of online version: h
 <!-- CONTRIBUTING -->
 
 ## 🤝 Contributing <a name="contributing"></a>
-Contributions are always welcome. Feel free to make your issue.
+Contributions are always welcome. Feel free to make your issues.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
